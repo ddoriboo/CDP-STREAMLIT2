@@ -40,25 +40,28 @@ st.markdown("""
         background-color: transparent !important;
     }
     
-    /* 헤더 스타일 */
+    /* 헤더 스타일 개선 */
     .main-header {
-        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        background: #4CAF50;
         color: white;
-        padding: 40px 30px;
+        padding: 24px 30px;
         text-align: center;
-        border-radius: 20px 20px 0 0;
+        border-radius: 12px 12px 0 0;
         margin: -30px -30px 0 -30px;
+        border-bottom: 3px solid #45a049;
     }
     
     .main-header h1 {
-        font-size: 2.5em;
-        margin-bottom: 10px;
-        font-weight: bold;
+        font-size: 1.8em;
+        margin: 0 0 8px 0;
+        font-weight: 600;
     }
     
     .main-header p {
-        font-size: 1.2em;
-        opacity: 0.9;
+        font-size: 1.0em;
+        opacity: 0.95;
+        margin: 0;
+        font-weight: 400;
     }
     
     /* 컨텐츠 영역 */
@@ -77,18 +80,31 @@ st.markdown("""
         padding: 20px 0 0 0;
     }
     
-    /* API 키 섹션 */
+    /* API 키 섹션 개선 */
     .api-key-section {
-        background: #fff3cd;
-        border-left: 4px solid #ffc107;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
         border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 20px;
+        padding: 16px;
+        margin: 16px 0 24px 0;
     }
     
     .api-key-section h4 {
-        color: #856404;
-        margin-bottom: 10px;
+        color: #495057;
+        margin: 0 0 12px 0;
+        font-size: 1.0em;
+        font-weight: 500;
+    }
+    
+    .api-key-collapsed {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin: 16px 0 24px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     
     /* 탭 스타일 개선 */
@@ -129,6 +145,7 @@ st.markdown("""
         font-weight: 600;
         z-index: 1;
         position: relative;
+        box-shadow: 0 -2px 0 0 #4CAF50;
     }
     
     /* 쿼리 입력 스타일 */
@@ -375,112 +392,106 @@ def render_header():
 
 def render_api_key_section():
     """API 키 섹션 렌더링"""
-    with st.container():
-        col1, col2 = st.columns([20, 1])
+    if st.session_state.show_api_key:
+        # 확장된 API 키 섹션
+        st.markdown("""
+        <div class="api-key-section">
+            <h4>🔑 OpenAI API 키 설정</h4>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col1, col2, col3 = st.columns([3, 1, 1])
         
         with col1:
-            st.markdown("""
-            <div class="api-key-section">
-                <h4>🔑 OpenAI API 키 설정</h4>
+            api_key = st.text_input(
+                "API 키",
+                value=st.session_state.api_key,
+                type="password",
+                placeholder="sk-proj-... 또는 sk-...",
+                label_visibility="collapsed",
+                help="OpenAI API 키를 입력하세요"
+            )
+            
+            if api_key != st.session_state.api_key:
+                st.session_state.api_key = api_key
+                st.session_state.api_key_validated = False
+        
+        with col2:
+            if st.button("저장", use_container_width=True, type="primary"):
+                if api_key:
+                    with st.spinner("API 키 검증 중..."):
+                        is_valid, message = st.session_state.cdp_service.validate_api_key(api_key)
+                        
+                        if is_valid:
+                            st.session_state.api_key_validated = True
+                            st.success(message)
+                        else:
+                            st.error(message)
+                else:
+                    st.error("API 키를 입력해주세요.")
+        
+        with col3:
+            if st.button("접기", use_container_width=True):
+                st.session_state.show_api_key = False
+                st.rerun()
+        
+        # API 키 상태 표시
+        if st.session_state.api_key_validated:
+            st.success("✅ API 키가 검증되었습니다.")
+        elif st.session_state.api_key:
+            st.warning("⚠️ API 키 검증이 필요합니다.")
+        else:
+            st.info("💡 [OpenAI API 키 발급받기](https://platform.openai.com/api-keys)")
+    
+    else:
+        # 축소된 API 키 섹션
+        col1, col2 = st.columns([4, 1])
+        
+        with col1:
+            if st.session_state.api_key_validated:
+                status_text = "✅ API 키가 설정되어 있습니다"
+                status_color = "#d4edda"
+            else:
+                status_text = "🔑 OpenAI API 키를 설정해주세요"
+                status_color = "#f8f9fa"
+            
+            st.markdown(f"""
+            <div style="background: {status_color}; padding: 12px 16px; border-radius: 8px; border: 1px solid #dee2e6; margin: 16px 0;">
+                <span style="color: #495057; font-size: 14px;">{status_text}</span>
             </div>
             """, unsafe_allow_html=True)
         
-        # API 키 입력 영역
-        if st.session_state.show_api_key:
-            col1, col2, col3 = st.columns([3, 1, 1])
-            
-            with col1:
-                api_key = st.text_input(
-                    "API 키",
-                    value=st.session_state.api_key,
-                    type="password",
-                    placeholder="sk-...",
-                    label_visibility="collapsed"
-                )
-                
-                if api_key != st.session_state.api_key:
-                    st.session_state.api_key = api_key
-                    st.session_state.api_key_validated = False
-            
-            with col2:
-                if st.button("저장", use_container_width=True):
-                    if api_key:
-                        with st.spinner("API 키 검증 중..."):
-                            is_valid, message = st.session_state.cdp_service.validate_api_key(api_key)
-                            
-                            if is_valid:
-                                st.session_state.api_key_validated = True
-                                st.success(message)
-                            else:
-                                st.error(message)
-                    else:
-                        st.error("API 키를 입력해주세요.")
-            
-            with col3:
-                if st.button("접기", use_container_width=True):
-                    st.session_state.show_api_key = False
-                    st.rerun()
-            
-            # API 키 상태 표시
-            if st.session_state.api_key_validated:
-                st.success("✅ API 키가 검증되었습니다. 서비스를 이용할 수 있습니다.")
-            elif st.session_state.api_key:
-                st.warning("⚠️ API 키 검증이 필요합니다. '저장' 버튼을 클릭해주세요.")
-            else:
-                st.info("ℹ️ OpenAI API 키를 입력해주세요. [API 키 발급하기](https://platform.openai.com/api-keys)")
-        else:
-            if st.button("🔽 API 키 설정 펼치기"):
+        with col2:
+            if st.button("설정", use_container_width=True):
                 st.session_state.show_api_key = True
                 st.rerun()
-            
-            if st.session_state.api_key_validated:
-                st.success("✅ API 키가 설정되어 있습니다.")
 
 
 def render_query_tab():
     """쿼리 분석 탭"""
     st.markdown('<div class="query-container">', unsafe_allow_html=True)
     
-    # 자주 묻는 질문들
-    st.markdown("### 💡 예제 질문들")
-    
-    common_questions = st.session_state.cdp_service.get_common_questions()
-    
-    # 예제 질문들을 카드 형태로 표시 (더 자연스럽게)
-    for i in range(0, len(common_questions), 2):
-        cols = st.columns(2)  # 3개에서 2개로 줄여 더 여유롭게
-        for j, col in enumerate(cols):
-            if i + j < len(common_questions):
-                with col:
-                    # 카드 형태로 표시
-                    st.markdown(f"""
-                    <div style="
-                        border: 1px solid #e9ecef; 
-                        border-radius: 8px; 
-                        padding: 16px; 
-                        margin: 8px 0; 
-                        background: white;
-                        cursor: pointer;
-                        transition: all 0.2s ease;
-                        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-                    " onmouseover="this.style.borderColor='#4CAF50'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.1)'" 
-                       onmouseout="this.style.borderColor='#e9ecef'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.05)'">
-                        <div style="font-size: 14px; color: #495057; line-height: 1.4;">
-                            {common_questions[i + j]}
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
-                    
-                    if st.button(
-                        "이 질문 사용하기",
-                        key=f"use_example_{i+j}",
-                        use_container_width=True
-                    ):
-                        st.session_state.main_query = common_questions[i + j]
-                        st.success("질문이 입력되었습니다!")
-                        st.rerun()
-    
     st.markdown("### 🔍 자연어 쿼리")
+    
+    # 예제 질문 드롭다운
+    common_questions = st.session_state.cdp_service.get_common_questions()
+    example_options = ["직접 입력하기"] + common_questions
+    
+    selected_example = st.selectbox(
+        "💡 예제 질문을 선택하거나 직접 입력하세요",
+        example_options,
+        key="example_selector"
+    )
+    
+    # 예제 선택 시 자동 입력
+    if selected_example != "직접 입력하기":
+        if 'last_selected_example' not in st.session_state:
+            st.session_state.last_selected_example = ""
+        
+        if selected_example != st.session_state.last_selected_example:
+            st.session_state.main_query = selected_example
+            st.session_state.last_selected_example = selected_example
+            st.rerun()
     
     # 쿼리 입력
     query = st.text_area(
