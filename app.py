@@ -107,45 +107,45 @@ st.markdown("""
         align-items: center;
     }
     
-    /* 탭 스타일 개선 */
+    /* 탭 스타일 개선 - 깔끔한 하이라이트 */
     .stTabs [data-baseweb="tab-list"] {
-        background: white;
-        padding: 0;
-        gap: 0;
-        border-bottom: 2px solid #e9ecef;
-        border-radius: 8px 8px 0 0;
-        margin: 0;
+        background: #f8f9fa;
+        padding: 4px;
+        gap: 2px;
+        border-radius: 10px;
+        margin: 0 0 20px 0;
+        border: 1px solid #e9ecef;
     }
     
     .stTabs [data-baseweb="tab"] {
-        height: 48px;
-        background: #f8f9fa;
-        border: 1px solid #e9ecef;
-        border-bottom: none;
-        padding: 0 24px;
+        height: 44px;
+        background: transparent;
+        border: none;
+        padding: 0 20px;
         font-size: 14px;
         font-weight: 500;
         margin: 0;
-        border-radius: 8px 8px 0 0;
-        margin-right: 2px;
+        border-radius: 6px;
         transition: all 0.2s ease;
         color: #6c757d;
+        outline: none !important;  /* 빨간색 포커스 아웃라인 제거 */
     }
     
     .stTabs [data-baseweb="tab"]:hover {
-        background: #e9ecef;
-        color: #495057;
+        background: rgba(76, 175, 80, 0.1);
+        color: #4CAF50;
+    }
+    
+    .stTabs [data-baseweb="tab"]:focus {
+        outline: none !important;  /* 포커스 아웃라인 완전 제거 */
+        box-shadow: none !important;
     }
     
     .stTabs [aria-selected="true"] {
-        background: white !important;
-        border-color: #e9ecef !important;
-        border-bottom: 2px solid white !important;
-        color: #4CAF50 !important;
+        background: #4CAF50 !important;
+        color: white !important;
         font-weight: 600;
-        z-index: 1;
-        position: relative;
-        box-shadow: 0 -2px 0 0 #4CAF50;
+        box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
     }
     
     /* 쿼리 입력 스타일 */
@@ -325,6 +325,16 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     .stDeployButton {display:none;}
+    
+    /* 모든 포커스 아웃라인 제거 */
+    * {
+        outline: none !important;
+    }
+    
+    *:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
     
     /* 사이드바 스타일 */
     section[data-testid="stSidebar"] {
@@ -581,19 +591,67 @@ def render_column_browser_tab():
             )
         
         # 카테고리별 통계 표시
-        st.markdown("### 📊 카테고리별 컬럼 수")
+        st.markdown("### 📊 CDP 컬럼 카테고리")
+        st.info("네이버 CDP에서 제공하는 고객 데이터는 5가지 주요 카테고리로 구분됩니다.")
+        
+        # 카테고리 설명
+        category_descriptions = {
+            'basic': '기본 정보 - 네이버 회원 식별 정보',
+            'interests': '관심사 - 고객의 취미, 생활패턴, 소비성향 등',
+            'industries': '업종별 활동 - 결제한 업종 및 서비스 분야',
+            'scores': '예측 점수 - AI가 예측한 고객 성향 점수',
+            'flags': '고객 속성 - 연령, 성별, 지역, 서비스 이용 현황 등'
+        }
         
         if len(column_stats) > 0:
-            # 최대 5개 컬럼으로 제한하여 레이아웃 깨짐 방지
-            cols = st.columns(min(len(column_stats), 5))
-            for i, (category, count) in enumerate(column_stats.items()):
-                if i < 5:  # 최대 5개만 표시
-                    with cols[i]:
+            # 2행으로 나누어 표시
+            row1_cols = st.columns(3)  # 첫 번째 행 - 3개
+            row2_cols = st.columns(2)  # 두 번째 행 - 2개
+            
+            categories = list(column_stats.items())
+            
+            # 첫 번째 행 (basic, interests, industries)
+            for i in range(3):
+                if i < len(categories):
+                    category, count = categories[i]
+                    with row1_cols[i]:
                         color = get_category_color(category)
                         st.markdown(f"""
-                        <div style="text-align: center; padding: 12px; background: {color}; color: white; border-radius: 8px; margin: 4px 0;">
-                            <h4 style="margin: 0; font-size: 1.5em;">{count}</h4>
-                            <p style="margin: 0; font-size: 12px; text-transform: uppercase;">{category}</p>
+                        <div style="
+                            text-align: center; 
+                            padding: 16px 12px; 
+                            background: {color}; 
+                            color: white; 
+                            border-radius: 12px; 
+                            margin: 8px 4px;
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                        ">
+                            <div style="font-size: 2.2em; font-weight: bold; margin-bottom: 4px;">{count}</div>
+                            <div style="font-size: 14px; font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{category}</div>
+                            <div style="font-size: 11px; opacity: 0.9; line-height: 1.3;">{category_descriptions.get(category, '')}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+            
+            # 두 번째 행 (scores, flags)
+            if len(categories) > 3:
+                col_offset = st.columns([1, 2, 2, 1])  # 가운데 정렬을 위한 여백
+                for i in range(3, min(5, len(categories))):
+                    category, count = categories[i]
+                    with col_offset[i-2]:  # 인덱스 1, 2 사용 (가운데 정렬)
+                        color = get_category_color(category)
+                        st.markdown(f"""
+                        <div style="
+                            text-align: center; 
+                            padding: 16px 12px; 
+                            background: {color}; 
+                            color: white; 
+                            border-radius: 12px; 
+                            margin: 8px 4px;
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                        ">
+                            <div style="font-size: 2.2em; font-weight: bold; margin-bottom: 4px;">{count}</div>
+                            <div style="font-size: 14px; font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{category}</div>
+                            <div style="font-size: 11px; opacity: 0.9; line-height: 1.3;">{category_descriptions.get(category, '')}</div>
                         </div>
                         """, unsafe_allow_html=True)
         
@@ -641,30 +699,52 @@ def render_column_browser_tab():
             st.markdown("### 💡 컬럼 예시")
             st.info("검색어를 입력하거나 아래 카테고리별 예시 컬럼을 참고하세요.")
             
-            # 각 카테고리별로 3개씩 샘플 표시
+            # 각 카테고리별로 모든 컬럼 표시
             from backend.config.cdp_columns import CDP_COLUMNS
             
             for category, columns in CDP_COLUMNS.items():
                 if category != 'basic':  # basic은 1개뿐이라 제외
-                    with st.expander(f"📂 {category.title()} 카테고리 ({len(columns)}개 컬럼)"):
-                        sample_columns = list(columns.items())[:6]  # 처음 6개만
+                    with st.expander(f"📂 {category.title()} 카테고리 ({len(columns)}개 컬럼)", expanded=False):
+                        all_columns = list(columns.items())
                         
-                        if sample_columns:
-                            for i in range(0, len(sample_columns), 2):
-                                cols = st.columns(2)
-                                for j, col in enumerate(cols):
-                                    if i + j < len(sample_columns):
-                                        col_name, col_desc = sample_columns[i + j]
-                                        with col:
-                                            st.markdown(f"""
-                                            <div style="border: 1px solid #e9ecef; padding: 8px; border-radius: 4px; margin: 2px 0;">
-                                                <strong>{col_name}</strong><br>
-                                                <small style="color: #6c757d;">{col_desc[:80]}{'...' if len(col_desc) > 80 else ''}</small>
+                        # 전체 컬럼을 2열로 표시
+                        for i in range(0, len(all_columns), 2):
+                            cols = st.columns(2)
+                            for j, col in enumerate(cols):
+                                if i + j < len(all_columns):
+                                    col_name, col_desc = all_columns[i + j]
+                                    with col:
+                                        # 컬럼 타입에 따른 아이콘 추가
+                                        if col_name.startswith('fa_int_'):
+                                            icon = "🎯"  # 관심사
+                                        elif col_name.startswith('fa_ind_'):
+                                            icon = "🏢"  # 업종
+                                        elif col_name.startswith('sc_'):
+                                            icon = "📊"  # 점수
+                                        elif col_name.startswith('fi_'):
+                                            icon = "👤"  # 플래그
+                                        else:
+                                            icon = "📝"  # 기본
+                                        
+                                        st.markdown(f"""
+                                        <div style="
+                                            border: 1px solid #e9ecef; 
+                                            padding: 12px; 
+                                            border-radius: 8px; 
+                                            margin: 4px 0;
+                                            background: #fafafa;
+                                            transition: all 0.2s ease;
+                                        " onmouseover="this.style.backgroundColor='#f0f8f0'; this.style.borderColor='#4CAF50';"
+                                           onmouseout="this.style.backgroundColor='#fafafa'; this.style.borderColor='#e9ecef';">
+                                            <div style="display: flex; align-items: center; margin-bottom: 6px;">
+                                                <span style="margin-right: 8px; font-size: 16px;">{icon}</span>
+                                                <strong style="color: #2c3e50; font-size: 13px;">{col_name}</strong>
                                             </div>
-                                            """, unsafe_allow_html=True)
-                        
-                        if len(columns) > 6:
-                            st.caption(f"... 외 {len(columns) - 6}개 컬럼 더 있음")
+                                            <div style="color: #6c757d; font-size: 12px; line-height: 1.4;">
+                                                {col_desc}
+                                            </div>
+                                        </div>
+                                        """, unsafe_allow_html=True)
                 
     except Exception as e:
         st.error(f"컬럼 브라우저 로드 중 오류 발생: {str(e)}")
