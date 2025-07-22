@@ -66,10 +66,15 @@ st.markdown("""
         background: white;
         border-radius: 0 0 20px 20px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        padding: 30px;
+        padding: 0 30px 30px 30px;
         margin: 0 -30px 20px -30px;
         border: 1px solid #e9ecef;
         border-top: none;
+    }
+    
+    /* 탭 컨텐츠 영역 */
+    .stTabs > div > div > div > div {
+        padding: 20px 0 0 0;
     }
     
     /* API 키 섹션 */
@@ -86,33 +91,44 @@ st.markdown("""
         margin-bottom: 10px;
     }
     
-    /* 탭 스타일 */
+    /* 탭 스타일 개선 */
     .stTabs [data-baseweb="tab-list"] {
-        background: #f8f9fa;
+        background: white;
         padding: 0;
         gap: 0;
-        border-bottom: 1px solid #e9ecef;
+        border-bottom: 2px solid #e9ecef;
+        border-radius: 8px 8px 0 0;
+        margin: 0;
     }
     
     .stTabs [data-baseweb="tab"] {
-        height: 60px;
-        background: transparent;
-        border: none;
-        padding: 0 30px;
-        font-size: 16px;
+        height: 48px;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-bottom: none;
+        padding: 0 24px;
+        font-size: 14px;
         font-weight: 500;
-        border-bottom: 3px solid transparent;
-        transition: all 0.3s ease;
+        margin: 0;
+        border-radius: 8px 8px 0 0;
+        margin-right: 2px;
+        transition: all 0.2s ease;
+        color: #6c757d;
     }
     
     .stTabs [data-baseweb="tab"]:hover {
         background: #e9ecef;
+        color: #495057;
     }
     
     .stTabs [aria-selected="true"] {
         background: white !important;
-        border-bottom-color: #4CAF50 !important;
+        border-color: #e9ecef !important;
+        border-bottom: 2px solid white !important;
         color: #4CAF50 !important;
+        font-weight: 600;
+        z-index: 1;
+        position: relative;
     }
     
     /* 쿼리 입력 스타일 */
@@ -143,24 +159,30 @@ st.markdown("""
         box-shadow: none !important;
     }
     
-    /* 버튼 스타일 */
+    /* 버튼 스타일 개선 */
     .stButton > button {
-        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        background: #4CAF50;
         color: white;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 8px;
+        border: 1px solid #4CAF50;
+        padding: 10px 20px;
+        border-radius: 6px;
         font-size: 14px;
         font-weight: 500;
         transition: all 0.2s ease;
         width: 100%;
-        margin: 4px 0;
+        margin: 2px 0;
+        box-shadow: none;
     }
     
     .stButton > button:hover {
-        background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
-        transform: translateY(-1px);
-        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+        background: #45a049;
+        border-color: #45a049;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .stButton > button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
     }
     
     /* 예제 태그 스타일 */
@@ -424,18 +446,39 @@ def render_query_tab():
     
     common_questions = st.session_state.cdp_service.get_common_questions()
     
-    # 3개씩 한 줄로 표시
-    for i in range(0, len(common_questions), 3):
-        cols = st.columns(3)
+    # 예제 질문들을 카드 형태로 표시 (더 자연스럽게)
+    for i in range(0, len(common_questions), 2):
+        cols = st.columns(2)  # 3개에서 2개로 줄여 더 여유롭게
         for j, col in enumerate(cols):
             if i + j < len(common_questions):
                 with col:
+                    # 카드 형태로 표시
+                    st.markdown(f"""
+                    <div style="
+                        border: 1px solid #e9ecef; 
+                        border-radius: 8px; 
+                        padding: 16px; 
+                        margin: 8px 0; 
+                        background: white;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+                    " onmouseover="this.style.borderColor='#4CAF50'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.1)'" 
+                       onmouseout="this.style.borderColor='#e9ecef'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.05)'">
+                        <div style="font-size: 14px; color: #495057; line-height: 1.4;">
+                            {common_questions[i + j]}
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
                     if st.button(
-                        common_questions[i + j],
-                        key=f"example_{i+j}",
+                        "이 질문 사용하기",
+                        key=f"use_example_{i+j}",
                         use_container_width=True
                     ):
                         st.session_state.main_query = common_questions[i + j]
+                        st.success("질문이 입력되었습니다!")
+                        st.rerun()
     
     st.markdown("### 🔍 자연어 쿼리")
     
@@ -498,69 +541,123 @@ def render_column_browser_tab():
     """컬럼 브라우저 탭"""
     st.markdown("### 🔍 CDP 컬럼 탐색")
     
-    col1, col2 = st.columns([3, 1])
-    
-    with col1:
-        search_query = st.text_input(
-            "컬럼 검색",
-            placeholder="검색어를 입력하세요 (예: 골프, 여행, 대출)",
-            label_visibility="collapsed"
-        )
-    
-    with col2:
-        category_filter = st.selectbox(
-            "카테고리",
-            ["전체"] + list(st.session_state.cdp_service.get_column_stats().keys()),
-            label_visibility="collapsed"
-        )
-    
-    # 카테고리별 통계
-    st.markdown("### 📊 카테고리별 컬럼 수")
-    column_stats = st.session_state.cdp_service.get_column_stats()
-    
-    cols = st.columns(len(column_stats))
-    for i, (category, count) in enumerate(column_stats.items()):
-        with cols[i]:
-            color = get_category_color(category)
-            st.markdown(f"""
-            <div style="text-align: center; padding: 15px; background: {color}; color: white; border-radius: 10px;">
-                <h3 style="margin: 0;">{count}</h3>
-                <p style="margin: 0; font-size: 14px;">{category.title()}</p>
-            </div>
-            """, unsafe_allow_html=True)
-    
-    # 검색 결과
-    if search_query:
-        st.markdown("### 🔎 검색 결과")
+    try:
+        # 컬럼 통계 먼저 확인
+        column_stats = st.session_state.cdp_service.get_column_stats()
         
-        category = None if category_filter == "전체" else category_filter
-        results = st.session_state.cdp_service.search_columns(search_query, category)
+        if not column_stats:
+            st.error("컬럼 데이터를 불러올 수 없습니다.")
+            return
         
-        if results:
-            # 3열 그리드로 표시
-            for i in range(0, len(results), 3):
-                cols = st.columns(3)
-                for j, col in enumerate(cols):
-                    if i + j < len(results):
-                        result = results[i + j]
-                        with col:
-                            st.markdown(f"""
-                            <div class="column-card">
-                                <div class="column-name">{result['column']}</div>
-                                <span class="column-category">{result['category']}</span>
-                                <div class="column-description">{result['description']}</div>
-                            </div>
-                            """, unsafe_allow_html=True)
-                            
-                            if st.button("쿼리에 추가", key=f"add_{result['column']}"):
-                                current_query = st.session_state.get('main_query', '')
-                                if current_query:
-                                    st.session_state.main_query = f"{current_query}, {result['column']} 관련"
-                                else:
-                                    st.session_state.main_query = f"{result['column']} 관련 고객을 찾아주세요"
-                                st.info(f"'{result['column']}'이(가) 쿼리에 추가되었습니다.")
+        # 검색 및 필터 섹션
+        col1, col2 = st.columns([3, 1])
+        
+        with col1:
+            search_query = st.text_input(
+                "컬럼 검색",
+                placeholder="검색어를 입력하세요 (예: 골프, 여행, 대출)",
+                label_visibility="collapsed",
+                key="column_search"
+            )
+        
+        with col2:
+            category_options = ["전체"] + list(column_stats.keys())
+            category_filter = st.selectbox(
+                "카테고리",
+                category_options,
+                label_visibility="collapsed",
+                key="category_filter"
+            )
+        
+        # 카테고리별 통계 표시
+        st.markdown("### 📊 카테고리별 컬럼 수")
+        
+        if len(column_stats) > 0:
+            # 최대 5개 컬럼으로 제한하여 레이아웃 깨짐 방지
+            cols = st.columns(min(len(column_stats), 5))
+            for i, (category, count) in enumerate(column_stats.items()):
+                if i < 5:  # 최대 5개만 표시
+                    with cols[i]:
+                        color = get_category_color(category)
+                        st.markdown(f"""
+                        <div style="text-align: center; padding: 12px; background: {color}; color: white; border-radius: 8px; margin: 4px 0;">
+                            <h4 style="margin: 0; font-size: 1.5em;">{count}</h4>
+                            <p style="margin: 0; font-size: 12px; text-transform: uppercase;">{category}</p>
+                        </div>
+                        """, unsafe_allow_html=True)
+        
+        # 전체 컬럼 수 표시
+        total_columns = sum(column_stats.values())
+        st.info(f"📊 총 {total_columns}개의 컬럼이 등록되어 있습니다.")
+        
+        # 검색 결과 또는 기본 컬럼 표시
+        if search_query and search_query.strip():
+            st.markdown("### 🔎 검색 결과")
+            
+            category = None if category_filter == "전체" else category_filter
+            results = st.session_state.cdp_service.search_columns(search_query.strip(), category)
+            
+            if results:
+                st.success(f"검색된 컬럼: {len(results)}개")
+                
+                # 3열 그리드로 표시
+                for i in range(0, len(results), 3):
+                    cols = st.columns(3)
+                    for j, col in enumerate(cols):
+                        if i + j < len(results):
+                            result = results[i + j]
+                            with col:
+                                st.markdown(f"""
+                                <div class="column-card">
+                                    <div class="column-name">{result['column']}</div>
+                                    <span class="column-category" style="background: {get_category_color(result['category'])}; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px;">{result['category']}</span>
+                                    <div class="column-description">{result['description'][:100]}{'...' if len(result['description']) > 100 else ''}</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                                
+                                if st.button("쿼리에 추가", key=f"add_{i}_{j}_{result['column']}"):
+                                    current_query = st.session_state.get('main_query', '')
+                                    if current_query:
+                                        st.session_state.main_query = f"{current_query}, {result['column']} 관련"
+                                    else:
+                                        st.session_state.main_query = f"{result['column']} 관련 고객을 찾아주세요"
+                                    st.success(f"'{result['column']}'이(가) 쿼리에 추가되었습니다!")
+                                    st.rerun()
+            else:
+                st.warning(f"'{search_query}' 검색어에 대한 결과가 없습니다.")
         else:
-            st.info("검색 결과가 없습니다.")
+            # 검색어가 없을 때 카테고리별 샘플 컬럼 표시
+            st.markdown("### 💡 컬럼 예시")
+            st.info("검색어를 입력하거나 아래 카테고리별 예시 컬럼을 참고하세요.")
+            
+            # 각 카테고리별로 3개씩 샘플 표시
+            from backend.config.cdp_columns import CDP_COLUMNS
+            
+            for category, columns in CDP_COLUMNS.items():
+                if category != 'basic':  # basic은 1개뿐이라 제외
+                    with st.expander(f"📂 {category.title()} 카테고리 ({len(columns)}개 컬럼)"):
+                        sample_columns = list(columns.items())[:6]  # 처음 6개만
+                        
+                        if sample_columns:
+                            for i in range(0, len(sample_columns), 2):
+                                cols = st.columns(2)
+                                for j, col in enumerate(cols):
+                                    if i + j < len(sample_columns):
+                                        col_name, col_desc = sample_columns[i + j]
+                                        with col:
+                                            st.markdown(f"""
+                                            <div style="border: 1px solid #e9ecef; padding: 8px; border-radius: 4px; margin: 2px 0;">
+                                                <strong>{col_name}</strong><br>
+                                                <small style="color: #6c757d;">{col_desc[:80]}{'...' if len(col_desc) > 80 else ''}</small>
+                                            </div>
+                                            """, unsafe_allow_html=True)
+                        
+                        if len(columns) > 6:
+                            st.caption(f"... 외 {len(columns) - 6}개 컬럼 더 있음")
+                
+    except Exception as e:
+        st.error(f"컬럼 브라우저 로드 중 오류 발생: {str(e)}")
+        st.info("페이지를 새로고침해 보세요.")
 
 
 def render_team_scenarios_tab():

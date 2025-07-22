@@ -34,13 +34,14 @@ def format_priority(priority: str) -> str:
 def get_category_color(category: str) -> str:
     """카테고리별 색상 반환"""
     color_map = {
+        'basic': '#FFEAA7',        # 노란색
         'interests': '#FF6B6B',    # 빨간색
         'industries': '#4ECDC4',   # 청록색
         'scores': '#45B7D1',       # 파란색
-        'demographics': '#96CEB4', # 초록색
-        'basic': '#FFEAA7'         # 노란색
+        'flags': '#A855F7',        # 보라색
+        'demographics': '#96CEB4'  # 초록색 (legacy)
     }
-    return color_map.get(category, '#DDD')
+    return color_map.get(category, '#6c757d')
 
 
 def validate_sql_query(sql: str) -> tuple[bool, str]:

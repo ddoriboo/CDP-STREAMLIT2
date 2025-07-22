@@ -58,14 +58,23 @@ class CDPService:
         keywords_mapping = {
             '골프': ['fa_int_golf', 'fa_ind_golfcourse', 'fa_ind_golfequipmnt', 'sc_int_golf'],
             '반려동물': ['fa_int_householdpet', 'fa_ind_pet', 'fa_ind_pets'],
-            '여행': ['fa_int_traveldomestic', 'fa_int_traveloverseas', 'fa_int_travelpackage'],
+            '여행': ['fa_int_traveldomestic', 'fa_int_traveloverseas', 'fa_int_travelpackage', 'fa_int_travelasia'],
             '결혼': ['fa_int_wedding', 'fa_ind_weddingsvc', 'sc_int_wedding'],
             '대출': ['fa_int_loan1stfinancial', 'fa_int_loan2ndfinancial', 'fa_int_loanpersonal'],
             '배달': ['fa_int_delivery', 'fa_ind_delivery', 'sc_int_delivery'],
-            '20대': ['fi_npay_age20'],
-            '30대': ['fi_npay_age30'],
-            '여성': ['fi_npay_genderfemale'],
-            '남성': ['fi_npay_gendermale']
+            '피트니스': ['fa_int_gym', 'fa_ind_fitness', 'sc_int_gym'],
+            '요가': ['fa_int_pilatesyoga', 'sc_int_pilatesyoga'],
+            '필라테스': ['fa_int_pilatesyoga', 'sc_int_pilatesyoga'],
+            '뷰티': ['fa_ind_beauty', 'fa_ind_cosmetic'],
+            '카페': ['fa_ind_cafe', 'fa_ind_cafetotal', 'fa_ind_studycafe'],
+            '음식점': ['fa_ind_restaurant', 'fa_ind_foodbeverage'],
+            '온라인쇼핑': ['fa_ind_openmarket', 'fa_ind_complexmall'],
+            '20대': ['fi_npay_age20', 'fi_npay_age20_25', 'fi_npay_age25_30'],
+            '30대': ['fi_npay_age30', 'fi_npay_age30_35', 'fi_npay_age35_40'],
+            '40대': ['fi_npay_age40', 'fi_npay_age40_45', 'fi_npay_age45_50'],
+            '50대': ['fi_npay_age50', 'fi_npay_age50_55', 'fi_npay_age55_60'],
+            '여성': ['fi_npay_genderf'],
+            '남성': ['fi_npay_genderm']
         }
         
         for keyword, columns in keywords_mapping.items():
