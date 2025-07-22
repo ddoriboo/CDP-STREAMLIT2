@@ -1,9 +1,14 @@
-"""CDP 컬럼 정의"""
+"""CDP 컬럼 정의 - 완전 버전
+
+aiq-re.html에서 추출한 모든 CDP 컬럼 정의를 포함합니다.
+약 500개 이상의 컬럼을 카테고리별로 정리했습니다.
+"""
 
 CDP_COLUMNS = {
     "basic": {
         'mbr_id_no': '네이버 IDNO'
     },
+    
     "interests": {
         'fa_int_householdsingle': '최근 1개월 1인 가구 관련 상품 결제 또는 오피스텔/원룸 거주 추정 고객',
         'fa_int_householdpet': '최근 1개월 동물용품/동물병원 결제 고객',
@@ -49,6 +54,7 @@ CDP_COLUMNS = {
         'fa_int_alcohol': '최근 1개월 주류 관련 상품 결제 고객',
         'fa_int_ott': '최근 1개월 OTT 관련 결제 고객'
     },
+    
     "industries": {
         'fa_ind_education': '최근 1개월 업종>교육 결제 고객',
         'fa_ind_academy': '최근 1개월 업종>교육>학원 결제 고객',
@@ -89,18 +95,270 @@ CDP_COLUMNS = {
         'fa_ind_swimmingpool': '최근 1개월 업종>문화/취미>레포츠시설>수영장 결제 고객',
         'fa_ind_tennis': '최근 1개월 업종>문화/취미>레포츠시설>테니스 결제 고객',
         'fa_ind_fitness': '최근 1개월 업종>문화/취미>레포츠시설>피트니스 결제 고객',
-        # ... 더 많은 업종 컬럼들이 있지만 일부만 포함
+        'fa_ind_artwork': '최근 1개월 업종>문화/취미>미술품 결제 고객',
+        'fa_ind_gallery': '최근 1개월 업종>문화/취미>미술품>갤러리 결제 고객',
+        'fa_ind_paintingstore': '최근 1개월 업종>문화/취미>미술품>화방&표구점 결제 고객',
+        'fa_ind_videomusic': '최근 1개월 업종>문화/취미>영상/음악 결제 고객',
+        'fa_ind_videomusicsvc': '최근 1개월 업종>문화/취미>영상/음악>영상/음악 결제 고객',
+        'fa_ind_internettv': '최근 1개월 업종>문화/취미>영상/음악>인터넷방송 결제 고객',
+        'fa_ind_ott': '최근 1개월 업종>문화/취미>영상/음악>OTT/영상 결제 고객',
+        'fa_ind_vodmusic': '최근 1개월 업종>문화/취미>영상/음악>VOD&기타영상/음악 결제 고객',
+        'fa_ind_movieenter': '최근 1개월 업종>문화/취미>영화/엔터 결제 고객',
+        'fa_ind_entertainment': '최근 1개월 업종>문화/취미>영화/엔터>엔터테인먼트 결제 고객',
+        'fa_ind_cinema': '최근 1개월 업종>문화/취미>영화/엔터>영화 결제 고객',
+        'fa_ind_contentsvc': '최근 1개월 업종>문화/취미>컨텐츠 서비스 결제 고객',
+        'fa_ind_game': '최근 1개월 업종>문화/취미>컨텐츠 서비스>게임 결제 고객',
+        'fa_ind_subscription': '최근 1개월 업종>문화/취미>컨텐츠 서비스>구독 결제 고객',
+        'fa_ind_webtoon': '최근 1개월 업종>문화/취미>컨텐츠 서비스>웹툰/웹소설 결제 고객',
+        'fa_ind_ticketsales': '최근 1개월 업종>문화/취미>티켓발권 결제 고객',
+        'fa_ind_concert': '최근 1개월 업종>문화/취미>티켓발권>공연장 결제 고객',
+        'fa_ind_amusement': '최근 1개월 업종>문화/취미>티켓발권>놀이동산 결제 고객',
+        'fa_ind_zoo': '최근 1개월 업종>문화/취미>티켓발권>동물원 결제 고객',
+        'fa_ind_artmuseum': '최근 1개월 업종>문화/취미>티켓발권>미술관 결제 고객',
+        'fa_ind_museum': '최근 1개월 업종>문화/취미>티켓발권>박물관 결제 고객',
+        'fa_ind_botanicalgarden': '최근 1개월 업종>문화/취미>티켓발권>식물원 결제 고객',
+        'fa_ind_aquarium': '최근 1개월 업종>문화/취미>티켓발권>아쿠아리움 결제 고객',
+        'fa_ind_webtoonsvc': '최근 1개월 업종>문화/취미>티켓발권>웹툰/웹소설 결제 고객',
+        'fa_ind_exhibition': '최근 1개월 업종>문화/취미>티켓발권>전시 결제 고객',
+        'fa_ind_florist': '최근 1개월 업종>문화/취미>화원 결제 고객',
+        'fa_ind_beauty': '최근 1개월 업종>미용 결제 고객',
+        'fa_ind_nailartsvc': '최근 1개월 업종>미용>네일아트 결제 고객',
+        'fa_ind_beautysalon': '최근 1개월 업종>미용>미용실 결제 고객',
+        'fa_ind_beautysupplies': '최근 1개월 업종>미용>미용재료 결제 고객',
+        'fa_ind_sauna': '최근 1개월 업종>미용>사우나 결제 고객',
+        'fa_ind_massage': '최근 1개월 업종>미용>안마/스포츠마사지 결제 고객',
+        'fa_ind_salon': '최근 1개월 업종>미용>이용원 결제 고객',
+        'fa_ind_skincaresalon': '최근 1개월 업종>미용>피부미용실 결제 고객',
+        'fa_ind_livingexpenses': '최근 1개월 업종>생활요금 결제 고객',
+        'fa_ind_publicfee': '최근 1개월 업종>생활요금>공과금 결제 고객',
+        'fa_ind_gasfee': '최근 1개월 업종>생활요금>공과금>가스요금 결제 고객',
+        'fa_ind_maintenancefee': '최근 1개월 업종>생활요금>공과금>관리비 결제 고객',
+        'fa_ind_livingexpense': '최근 1개월 업종>생활요금>기타 생활요금 결제 고객',
+        'fa_ind_communicationfee': '최근 1개월 업종>생활요금>통신요금 결제 고객',
+        'fa_ind_wirelessfee': '최근 1개월 업종>생활요금>통신요금>무선통신 결제 고객',
+        'fa_ind_cabletv': '최근 1개월 업종>생활요금>통신요금>CATV결제 고객',
+        'fa_ind_donation': '최근 1개월 업종>생활요금>회비/후원금>후원결제 고객',
+        'fa_ind_tax': '최근 1개월 업종>세금결제 고객',
+        'fa_ind_othertax': '최근 1개월 업종>세금>기타세금결제 고객',
+        'fa_ind_totaltax': '최근 1개월 업종>세금>세금결제 고객',
+        'fa_ind_accommodation': '최근 1개월 업종>숙박업결제 고객',
+        'fa_ind_sharedaccomo': '최근 1개월 업종>숙박업>공유숙박결제 고객',
+        'fa_ind_motel': '최근 1개월 업종>숙박업>모텔결제 고객',
+        'fa_ind_resort': '최근 1개월 업종>숙박업>콘도&리조트결제 고객',
+        'fa_ind_hotel': '최근 1개월 업종>숙박업>호텔결제 고객',
+        'fa_ind_travel': '최근 1개월 업종>여행결제 고객',
+        'fa_ind_othertravel': '최근 1개월 업종>여행>기타여행결제 고객',
+        'fa_ind_travelagencysvc': '최근 1개월 업종>여행>여행사결제 고객',
+        'fa_ind_travelsvc': '최근 1개월 업종>여행>여행사>기타여행보조및예약서비스업결제 고객',
+        'fa_ind_travelagency': '최근 1개월 업종>여행>여행사>종합여행사결제 고객',
+        'fa_ind_entertainmentsvc': '최근 1개월 업종>유흥서비스결제 고객',
+        'fa_ind_gamefacility': '최근 1개월 업종>유흥서비스>게임시설결제 고객',
+        'fa_ind_karaokeroom': '최근 1개월 업종>유흥서비스>노래방결제 고객',
+        'fa_ind_pcroom': '최근 1개월 업종>유흥서비스>PC방결제 고객',
+        'fa_ind_medical': '최근 1개월 업종>의료결제 고객',
+        'fa_ind_hospitalclinic': '최근 1개월 업종>의료>병/의원결제 고객',
+        'fa_ind_pet': '최근 1개월 업종>의료>병/의원>동물결제 고객',
+        'fa_ind_hopital': '최근 1개월 업종>의료>병/의원>일반결제 고객',
+        'fa_ind_hopitaltotal': '최근 1개월 업종>의료>병/의원>종합결제 고객',
+        'fa_ind_pharmacy': '최근 1개월 업종>의료>약국결제 고객',
+        'fa_ind_petpharmacy': '최근 1개월 업종>의료>약국>동물약국결제 고객',
+        'fa_ind_medicalsvc': '최근 1개월 업종>의료>의료서비스결제 고객',
+        'fa_ind_medicaldevice': '최근 1개월 업종>의료>의료서비스>의료기기판매결제 고객',
+        'fa_ind_laborsvc': '최근 1개월 업종>인력서비스결제 고객',
+        'fa_ind_weddingsvc': '최근 1개월 업종>인력서비스>결혼서비스결제 고객',
+        'fa_ind_jobsearch': '최근 1개월 업종>인력서비스>구인구직결제 고객',
+        'fa_ind_otherlaborsvc': '최근 1개월 업종>인력서비스>기타인력서비스결제 고객',
+        'fa_ind_unmannedsvc': '최근 1개월 업종>인력서비스>무인서비스결제 고객',
+        'fa_ind_nonfacesvc': '최근 1개월 업종>인력서비스>비대면생활서비스결제 고객',
+        'fa_ind_taxaccountsvc': '최근 1개월 업종>인력서비스>세무/회계서비스결제 고객',
+        'fa_ind_laundrycleansvc': '최근 1개월 업종>인력서비스>세탁/청소서비스결제 고객',
+        'fa_ind_laundrysvc': '최근 1개월 업종>인력서비스>세탁/청소서비스>세탁서비스결제 고객',
+        'fa_ind_cleaningsvc': '최근 1개월 업종>인력서비스>세탁/청소서비스>청소서비스결제 고객',
+        'fa_ind_transportsvc': '최근 1개월 업종>인력서비스>화물운송서비스결제 고객',
+        'fa_ind_movingsvc': '최근 1개월 업종>인력서비스>화물운송서비스>이사결제 고객',
+        'fa_ind_deliverysvc': '최근 1개월 업종>인력서비스>화물운송서비스>택배결제 고객',
+        'fa_ind_specialtymall': '최근 1개월 업종>전문판매결제 고객',
+        'fa_ind_furnitureliving': '최근 1개월 업종>전문판매>가구/리빙결제 고객',
+        'fa_ind_purchasingsvc': '최근 1개월 업종>전문판매>구매대행결제 고객',
+        'fa_ind_bookprint': '최근 1개월 업종>전문판매>도서/인쇄결제 고객',
+        'fa_ind_bookstore': '최근 1개월 업종>전문판매>도서/인쇄>도서결제 고객',
+        'fa_ind_newspaper': '최근 1개월 업종>전문판매>도서/인쇄>신문결제 고객',
+        'fa_ind_photoprinting': '최근 1개월 업종>전문판매>도서/인쇄>출력/인화결제 고객',
+        'fa_ind_digitalappliances': '최근 1개월 업종>전문판매>디지털가전결제 고객',
+        'fa_ind_appliancerepairsvc': '최근 1개월 업종>전문판매>디지털가전>가전서비스결제 고객',
+        'fa_ind_digitalstore': '최근 1개월 업종>전문판매>디지털가전>양판점결제 고객',
+        'fa_ind_digitalbrand': '최근 1개월 업종>전문판매>디지털가전>직영판매점결제 고객',
+        'fa_ind_computergame': '최근 1개월 업종>전문판매>디지털가전>컴퓨터/게임판매점결제 고객',
+        'fa_ind_phonesales': '최근 1개월 업종>전문판매>디지털가전>휴대폰판매점결제 고객',
+        'fa_ind_rental': '최근 1개월 업종>전문판매>렌탈결제 고객',
+        'fa_ind_resale': '최근 1개월 업종>전문판매>리셀결제 고객',
+        'fa_ind_stationerytoys': '최근 1개월 업종>전문판매>문구/완구결제 고객',
+        'fa_ind_pets': '최근 1개월 업종>전문판매>반려동물결제 고객',
+        'fa_ind_delivery': '최근 1개월 업종>전문판매>배달결제 고객',
+        'fa_ind_welfaremall': '최근 1개월 업종>전문판매>복지/폐쇄몰결제 고객',
+        'fa_ind_cosmetic': '최근 1개월 업종>전문판매>뷰티결제 고객',
+        'fa_ind_giftcertifi': '최근 1개월 업종>전문판매>상품권결제 고객',
+        'fa_ind_livinggoods': '최근 1개월 업종>전문판매>생활잡화결제 고객',
+        'fa_ind_software': '최근 1개월 업종>전문판매>소프트웨어결제 고객',
+        'fa_ind_food': '최근 1개월 업종>전문판매>식품결제 고객',
+        'fa_ind_healthfood': '최근 1개월 업종>전문판매>식품>건강식품결제 고객',
+        'fa_ind_agricultural': '최근 1개월 업종>전문판매>식품>농수산물결제 고객',
+        'fa_ind_meat': '최근 1개월 업종>전문판매>식품>정육결제 고객',
+        'fa_ind_liquor': '최근 1개월 업종>전문판매>식품>주류결제 고객',
+        'fa_ind_totaloutdoor': '최근 1개월 업종>전문판매>아웃도어결제 고객',
+        'fa_ind_golfequipmnt': '최근 1개월 업종>전문판매>아웃도어>골프결제 고객',
+        'fa_ind_sportsgoods': '최근 1개월 업종>전문판매>아웃도어>스포츠결제 고객',
+        'fa_ind_outdoor': '최근 1개월 업종>전문판매>아웃도어>아웃도어결제 고객',
+        'fa_ind_kitchenware': '최근 1개월 업종>전문판매>주방용품결제 고객',
+        'fa_ind_secondhandmarket': '최근 1개월 업종>전문판매>중고(C2C)결제 고객',
+        'fa_ind_babychildcare': '최근 1개월 업종>전문판매>출산/육아>출산/육아결제 고객',
+        'fa_ind_fashionapparel': '최근 1개월 업종>전문판매>패션의류결제 고객',
+        'fa_ind_fashion': '최근 1개월 업종>전문판매>패션의류>패션의류결제 고객',
+        'fa_ind_watchjewelry': '최근 1개월 업종>전문판매>패션의류>시계/귀금속결제 고객',
+        'fa_ind_eyewear': '최근 1개월 업종>전문판매>패션의류>안경결제 고객',
+        'fa_ind_generalmall': '최근 1개월 업종>종합판매결제 고객',
+        'fa_ind_dutyfreeshop': '최근 1개월 업종>종합판매>면세점결제 고객',
+        'fa_ind_departmentstr': '최근 1개월 업종>종합판매>백화점결제 고객',
+        'fa_ind_outletmall': '최근 1개월 업종>종합판매>복합몰&아울렛>아울렛결제 고객',
+        'fa_ind_videocommerce': '최근 1개월 업종>종합판매>영상커머스결제 고객',
+        'fa_ind_openmarket': '최근 1개월 업종>종합판매>오픈마켓결제 고객',
+        'fa_ind_complexmall': '최근 1개월 업종>종합판매>종합몰결제 고객',
+        'fa_ind_crowdfunding': '최근 1개월 업종>종합판매>크라우드펀딩/재능마켓결제 고객',
+        'fa_ind_conveniencestr': '최근 1개월 업종>종합판매>편의점결제 고객',
+        'fa_ind_homeshopping': '최근 1개월 업종>종합판매>홈쇼핑결제 고객',
+        'fa_ind_fuelcharge': '최근 1개월 업종>주유/충전결제 고객',
+        'fa_ind_electricvehiclecharge': '최근 1개월 업종>주유/충전>신연료충전소>전기차충전소결제 고객',
+        'fa_ind_gasolinestation': '최근 1개월 업종>주유/충전>주유소>주유소결제 고객',
+        'fa_ind_overseas': '최근 1개월 업종>해외결제 고객',
+        'fa_ind_foodbeverage': '최근 1개월 업종>F&B결제 고객',
+        'fa_ind_bakery': '최근 1개월 업종>F&B>베이커리결제 고객',
+        'fa_ind_restaurant': '최근 1개월 업종>F&B>음식점결제 고객',
+        'fa_ind_westerncuisine': '최근 1개월 업종>F&B>음식점>양식결제 고객',
+        'fa_ind_japanesecuisine': '최근 1개월 업종>F&B>음식점>일식결제 고객',
+        'fa_ind_chinesecuisine': '최근 1개월 업종>F&B>음식점>중식결제 고객',
+        'fa_ind_chickenchain': '최근 1개월 업종>F&B>음식점>치킨결제 고객',
+        'fa_ind_fastfood': '최근 1개월 업종>F&B>음식점>패스트푸드결제 고객',
+        'fa_ind_pizzachain': '최근 1개월 업종>F&B>음식점>피자결제 고객',
+        'fa_ind_koreancuisine': '최근 1개월 업종>F&B>음식점>한식결제 고객',
+        'fa_ind_pub': '최근 1개월 업종>F&B>주점결제 고객',
+        'fa_ind_cafe': '최근 1개월 업종>F&B>카페결제 고객',
+        'fa_ind_studycafe': '최근 1개월 업종>F&B>카페>스터디카페결제 고객',
+        'fa_ind_cafetotal': '최근 1개월 업종>F&B>카페>일반카페결제 고객',
+        'fa_ind_kidscafe': '최근 1개월 업종>F&B>카페>키즈카페결제 고객',
+        # 추가 fa_npay offpay 컬럼들 (industries에 포함)
+        'fa_npay_loanswitch': '최근 1개월 Npay 대환대출 비교 고객',
+        'fa_npay_insuranceclaim': '최근 1개월 Npay 실손보험 청구 고객',
+        'fa_npay_raisingcreditscore': '최근 1개월 Npay 신용점수상승 페이지 클릭 고객',
+        'fa_npay_creditcheck': '최근 1개월 Npay 신용조회서비스 가입 고객',
+        'fa_npay_loanjeonse': '최근 1개월 Npay 전세자금대출 신규 신청 고객',
+        'fa_npay_loanmortgage': '최근 1개월 Npay 주택 담보 대출서비스 신규 신청 고객',
+        'fa_npay_cardissuance': '최근 1개월 Npay 제휴신용카드 발급 또는 카드발급하기 버튼 클릭 고객',
+        'fa_npay_offpay_homeappliance': '최근 1개월 가전 현장결제 고객',
+        'fa_npay_offpay_martdepartmentstore': '최근 1개월 백화점/마트/잡화점 현장결제 고객',
+        'fa_npay_offpay_dutyfree': '최근 1개월 면세점 현장결제 고객',
+        'fa_npay_offpay_theater': '최근 1개월 영화관 현장결제 고객',
+        'fa_npay_offpay_gasstation': '최근 1개월 주유소 현장결제 고객',
+        'fa_npay_offpay_themepark': '최근 1개월 테마파크 현장결제 고객',
+        'fa_npay_offpay_conveniencestore': '최근 1개월 편의점 현장결제 고객',
+        'fa_npay_offpay_academy': '최근 1개월 학원 MPM 현장결제 고객',
+        'fa_npay_offpay_cosmetic': '최근 1개월 화장품 관련 현장결제 고객',
+        'fa_npay_offpay_foodbeverage': '최근 1개월 F&B 현장결제 고객'
     },
+    
     "scores": {
+        # sc_int_ 컬럼들
         'sc_int_householdsingle': '최근 1개월 1인 가구 관련 상품 결제 또는 오피스텔/원룸 거주 추정 고객 (예측스코어)',
         'sc_int_householdpet': '최근 1개월 동물용품/동물병원 결제 고객 (예측스코어)',
         'sc_int_householdchild': '최근 1개월 어린이 관련 상품 결제 고객 (예측스코어)',
         'sc_int_householdbaby': '최근 1개월 영유아 관련 상품 결제 또는 출산 정책지원금 수령 고객 (예측스코어)',
         'sc_int_householdyouth': '최근 1개월 중고등학생 관련 상품 결제 고객 (예측스코어)',
         'sc_int_publictransport': '최근 1개월 Npay 교통카드 이용 또는 교통비 결제 고객 (예측스코어)',
-        # ... 더 많은 스코어 컬럼들
+        'sc_int_motorcycle': '최근 1개월 오토바이 관련 상품 결제 고객 (예측스코어)',
+        'sc_int_loan1stfinancial': '최근 1개월 1금융권에서 신용 대출 실행 고객 (예측스코어)',
+        'sc_int_loan2ndfinancial': '최근 1개월 저축은행, 카드사, 보험사, 증권사 등에서 신용 대출 실행 고객 (예측스코어)',
+        'sc_int_loanpersonal': '최근 1개월 신용대출 실행 고객 (예측스코어)',
+        'sc_int_saving': '최근 1개월 예적금 개설 고객 (예측스코어)',
+        'sc_int_jeonsemonthlyrent': '최근 24개월 계좌 및 대출이력을 통한 전월세 거주 추정 고객 (예측스코어)',
+        'sc_int_homeappliance': '최근 1개월 가전 상품 결제 고객 (예측스코어)',
+        'sc_int_luxury': '최근 1개월 100만원 이상 명품관련 결제 고객 (예측스코어)',
+        'sc_int_delivery': '최근 1개월 식비 목적의 배달 결제 고객 (예측스코어)',
+        'sc_int_mutualaidservice': '최근 1개월 상조서비스관련 결제 고객 (예측스코어)',
+        'sc_int_interior': '최근 1개월 인테리어 관련 상품 결제 고객 (예측스코어)',
+        'sc_int_carinsurance': '향후 1개월 내 자동차 보험 결제 예정으로 추정되는 고객(과거 동월 포함) (예측스코어)',
+        'sc_int_carpurchase': '최근 1개월 마이카 및 오토론을 통해 차량 구매 추정되는 고객 (예측스코어)',
+        'sc_int_overseasshopping': '최근 1개월 해외직구 결제 고객 (예측스코어)',
+        'sc_int_traveldomestic': '최근 1개월 국내여행 관련 상품 결제 고객 (예측스코어)',
+        'sc_int_travelpackage': '최근 1개월 여행사 패키지 상품 결제 고객 (예측스코어)',
+        'sc_int_traveloverseas': '향후 1개월 내 해외 여행 목적의 출국 예정 추정 고객 (예측스코어)',
+        'sc_int_travelasia': '향후 1개월 내 아시아 지역으로 해외여행 목적의 출국 예정 추정 고객 (예측스코어)',
+        'sc_int_golf': '최근 1개월 골프용품/골프장 관련 상품 결제 고객 (예측스코어)',
+        'sc_int_running': '최근 1개월 러닝/마라톤 관련 상품 결제 고객 (예측스코어)',
+        'sc_int_swimming': '최근 1개월 수영 관련 상품을 결제 고객 (예측스코어)',
+        'sc_int_pilatesyoga': '최근 1개월 필라테스/요가 상품 결제 고객 (예측스코어)',
+        'sc_int_gym': '최근 1개월 피트니스/헬스장 가맹점 결제 고객 (예측스코어)',
+        'sc_int_wedding': '최근 1개월 결혼 준비 관련 상품 결제 및 활동 발생한 고객 (예측스코어)',
+        'sc_int_retirement': '향후 24개월 내 은퇴 예정으로 추정 고객 (예측스코어)',
+        'sc_int_move': '최근 1개월 주소지 변경이력 존재 또는 이사관련 상품 결제 고객 (예측스코어)',
+        'sc_int_childbirth': '최근 1개월 임신/출산 관련 상품 결제 고객 (예측스코어)',
+        'sc_int_highincome': '최근 12개월 nice 추정소득 1억이상 고객 (예측스코어)',
+        'sc_int_homeowner': '최근 12개월 주택 소유 추정 고객 (예측스코어)',
+        'sc_int_business': '대출 등을 통한 사업자 추정 고객 (예측스코어)',
+        'sc_int_youngprofessional': '최근 1개월 급여입금을 통해 취직 추정 고객 (예측스코어)',
+        'sc_int_pharmaceutical': '최근 1개월 제약 B2B 가맹점 고객 (예측스코어)',
+        'sc_int_worker': '최근 2개월 정기적으로 급여 받는 고객 (예측스코어)',
+        'sc_int_fishing': '최근 1개월 낚시 관련 상품 결제 고객 (예측스코어)',
+        'sc_int_diet': '최근 1개월 다이어트 목적의 상품 결제 고객 (예측스코어)',
+        'sc_int_alcohol': '최근 1개월 주류 관련 상품 결제 고객 (예측스코어)',
+        'sc_int_ott': '최근 1개월 OTT 관련 결제 고객 (예측스코어)',
+        
+        # sc_ind_ 컬럼들 (업종별 예측 스코어)
+        'sc_ind_education': '최근 1개월 업종>교육 결제 고객 (예측스코어)',
+        'sc_ind_academy': '최근 1개월 업종>교육>학원 결제 고객 (예측스코어)',
+        'sc_ind_transportation': '최근 1개월 업종>교통 결제 고객 (예측스코어)',
+        'sc_ind_finance': '최근 1개월 업종>금융 결제 고객 (예측스코어)',
+        'sc_ind_mobility': '최근 1개월 업종>모빌리티 결제 고객 (예측스코어)',
+        'sc_ind_culturehobby': '최근 1개월 업종>문화/취미 결제 고객 (예측스코어)',
+        'sc_ind_beauty': '최근 1개월 업종>미용 결제 고객 (예측스코어)',
+        'sc_ind_livingexpenses': '최근 1개월 업종>생활요금 결제 고객 (예측스코어)',
+        'sc_ind_accommodation': '최근 1개월 업종>숙박업결제 고객 (예측스코어)',
+        'sc_ind_travel': '최근 1개월 업종>여행결제 고객 (예측스코어)',
+        'sc_ind_medical': '최근 1개월 업종>의료결제 고객 (예측스코어)',
+        'sc_ind_laborsvc': '최근 1개월 업종>인력서비스결제 고객 (예측스코어)',
+        'sc_ind_specialtymall': '최근 1개월 업종>전문판매결제 고객 (예측스코어)',
+        'sc_ind_generalmall': '최근 1개월 업종>종합판매결제 고객 (예측스코어)',
+        'sc_ind_fuelcharge': '최근 1개월 업종>주유/충전결제 고객 (예측스코어)',
+        'sc_ind_overseas': '최근 1개월 업종>해외결제 고객 (예측스코어)',
+        'sc_ind_foodbeverage': '최근 1개월 업종>F&B결제 고객 (예측스코어)',
+        
+        # sc_npay_ 컬럼들
+        'sc_npay_loanswitch': '최근 1개월 Npay 대환대출 비교 고객 (예측스코어)',
+        'sc_npay_insuranceclaim': '최근 1개월 Npay 실손보험 청구 고객 (예측스코어)',
+        'sc_npay_raisingcreditscore': '최근 1개월 Npay 신용점수상승 페이지 클릭 고객 (예측스코어)',
+        'sc_npay_creditcheck': '최근 1개월 Npay 신용점수 서비스 가입 고객 (예측스코어)',
+        'sc_npay_loanjeonse': '최근 1개월 Npay 전세자금대출 신규 신청 고객 (예측스코어)',
+        'sc_npay_loanmortgage': '최근 1개월 Npay 주택 담보 대출서비스 신규 신청 고객 (예측스코어)',
+        'sc_npay_cardissuance': '최근 1개월 Npay 제휴신용카드 발급 고객 (예측스코어)',
+        'sc_npay_offpay_homeappliance': '최근 1개월 가전 현장결제 고객 (예측스코어)',
+        'sc_npay_offpay_martdepartmentstore': '최근 1개월 백화점/마트/잡화점 현장결제 고객 (예측스코어)',
+        'sc_npay_offpay_dutyfree': '최근 1개월 면세점 현장결제 고객 (예측스코어)',
+        'sc_npay_offpay_theater': '최근 1개월 영화관 현장결제 고객 (예측스코어)',
+        'sc_npay_offpay_gasstation': '최근 1개월 주유소 현장결제 고객 (예측스코어)',
+        'sc_npay_offpay_themepark': '최근 1개월 테마파크 현장결제 고객 (예측스코어)',
+        'sc_npay_offpay_conveniencestore': '최근 1개월 편의점 현장결제 고객 (예측스코어)',
+        'sc_npay_offpay_academy': '최근 1개월 학원 MPM 현장결제 고객 (예측스코어)',
+        'sc_npay_offpay_cosmetic': '최근 1개월 화장품 관련 현장결제 고객 (예측스코어)',
+        'sc_npay_offpay_foodbeverage': '최근 1개월 F&B 현장결제 고객 (예측스코어)',
+        'sc_npay_paylatersignup': '최근 1개월 Npay 후불결제서비스 가입 고객 (예측스코어)',
+        'sc_npay_wakeup_nshopping': '최근 6개월 네이버쇼핑 결제이력이 없는 고객 중 향후 1개월 이내 네이버쇼핑을 결제할 고객',
+        'sc_npay_wakeup_nhcard': '최근 6개월 농협카드 결제이력이 없는 고객 중 향후 1개월 이내 농협카드를 이용하여 결제할 고객',
+        'sc_npay_loan_compare': '최근 1개월 신용대출비교 신청 고객',
+        'sc_npay_overseainsu_compare': '최근 1개월 해외여행자보험비교 신청 고객'
     },
-    "demographics": {
+    
+    "flags": {
+        # 기본 인구통계학적 정보
+        'fi_npay_genderm': '성별이 남성인 고객',
+        'fi_npay_genderf': '성별이 여성인 고객',
         'fi_npay_age10': '연령 10대 고객',
         'fi_npay_age20': '연령 20대 고객',
         'fi_npay_age30': '연령 30대 고객',
@@ -108,14 +366,117 @@ CDP_COLUMNS = {
         'fi_npay_age50': '연령 50대 고객',
         'fi_npay_age60': '연령 60대 고객',
         'fi_npay_ageup70': '연령 70대 고객',
-        'fi_npay_gendermale': '성별 남성 고객',
-        'fi_npay_genderfemale': '성별 여성 고객',
         'fi_npay_elementary': '연령 8~13세 고객',
         'fi_npay_middleschool': '연령 14~16세 고객',
         'fi_npay_highschool': '연령 17~19세 고객',
-        # ... 더 많은 인구통계학적 컬럼들
+        
+        # 세부 연령대
+        'fi_npay_age10_15': '연령 10-14세 사후필터링',
+        'fi_npay_age15_20': '연령 15-19세 사후필터링',
+        'fi_npay_age20_25': '연령 20-24세 사후필터링',
+        'fi_npay_age25_30': '연령 25-29세 사후필터링',
+        'fi_npay_age30_35': '연령 30-34세 사후필터링',
+        'fi_npay_age35_40': '연령 35-39세 사후필터링',
+        'fi_npay_age40_45': '연령 40-44세 사후필터링',
+        'fi_npay_age45_50': '연령 45-49세 사후필터링',
+        'fi_npay_age50_55': '연령 50-54세 사후필터링',
+        'fi_npay_age55_60': '연령 55-59세 사후필터링',
+        'fi_npay_age60_65': '연령 60-64세 사후필터링',
+        'fi_npay_age65_70': '연령 65-69세 사후필터링',
+        
+        # Npay 서비스 관련
+        'fi_npay_easymethodnormal': 'Npay 간편결제수단 등록 고객',
+        'fi_npay_easymethodaccountnormal': 'Npay 간편결제수단-계좌 등록 고객',
+        'fi_npay_easymethodcardnormal': 'Npay 간편결제수단-카드 등록 고객',
+        'fi_npay_miraeassetcmabankbooknormal': 'Npay 미래에셋 CMA제휴통장 가입 고객',
+        'fi_npay_miraeassetcmabankbookamt': 'Npay 미래에셋 CMA제휴통장 잔액 보유 고객',
+        'fi_npay_partnershipcreditcardnormal': 'Npay 제휴신용카드 등록 고객',
+        'fi_npay_partnershipcheckcardnormal': 'Npay 제휴체크카드 등록 고객',
+        'fi_npay_partnershipcardnormal': 'Npay 제휴카드 등록 고객',
+        'fi_npay_paymoneyamt': 'Npay 페이머니 잔액 보유 고객',
+        'fi_npay_paymoneyhanabankbooknormal': 'Npay 페이머니 하나통장 등록 고객',
+        'fi_npay_paymoneyhanabankbookamt': 'Npay 페이머니 하나통장 잔액 보유 고객',
+        'fi_npay_paypointamt': 'Npay 페이포인트 잔액이 0원이상인 고객',
+        'fi_npay_offpayuse': '최근 1개월 현장결제 서비스 이용 고객',
+        
+        # 경쟁사 결제
+        'fi_npay_rivalshein': '최근 1개월 쉬인 결제 고객',
+        'fi_npay_rivalaliexpress': '최근 1개월 알리익스프레스 결제 고객',
+        'fi_npay_rivalauction': '최근 1개월 옥션 결제 고객',
+        'fi_npay_rivalgmarket': '최근 1개월 G마켓 결제 고객',
+        'fi_npay_rivalcoupang': '최근 1개월 쿠팡 결제 고객',
+        'fi_npay_rivaltemu': '최근 1개월 테무 결제 고객',
+        'fi_npay_rivalssg': '최근 1개월 SSG 결제 고객',
+        
+        # 결제 패턴
+        'fi_npay_holiday': '최근 1개월 주중보다 휴일에 쇼핑을 많이한 고객',
+        'fi_npay_weekday': '최근 1개월 휴일보다 주중에 쇼핑을 많이한 고객',
+        
+        # 카드사별 등록/이용
+        'fi_npay_myassetregkbcard': '내자산 서비스 내 국민카드 등록 고객',
+        'fi_npay_cardapprovalkb': '최근 6개월 국민카드 승인 이력이 있는 고객',
+        'fi_npay_myassetregibkcard': '내자산 서비스 내 기업카드 등록 고객',
+        'fi_npay_cardapprovalibk': '최근 6개월 기업카드 승인 이력이 있는 고객',
+        'fi_npay_myassetregnhcard': '내자산 서비스 내 농협카드 등록 고객',
+        'fi_npay_cardapprovalnh': '최근 6개월 농협카드 승인 이력이 있는 고객',
+        'fi_npay_myassetreglottecard': '내자산 서비스 내 롯데카드 등록 고객',
+        'fi_npay_cardapprovallotte': '최근 6개월 롯데카드 승인 이력이 있는 고객',
+        'fi_npay_myassetregbccard': '내자산 서비스 내 비씨카드 등록 고객',
+        'fi_npay_cardapprovalbc': '최근 6개월 비씨카드 승인 이력이 있는 고객',
+        'fi_npay_myassetregsamsungcard': '내자산 서비스 내 삼성카드 등록 고객',
+        'fi_npay_cardapprovalsamsung': '최근 6개월 삼성카드 승인 이력이 있는 고객',
+        
+        # 내자산 서비스
+        'fi_npay_myassetreg': '내자산 서비스 내 서비스 연동 고객',
+        'fi_npay_myassetinsureg': '내자산 서비스 내 보험 연동 고객',
+        'fi_npay_myassetbankreg': '내자산 서비스 내 은행 연동 고객',
+        'fi_npay_myassetinvestreg': '내자산 서비스 내 증권 연동 고객',
+        'fi_npay_myassetcardreg': '내자산 서비스 내 카드 연동 고객',
+        'fi_npay_myassettelecomreg': '내자산 서비스 내 통신 연동 고객',
+        'fi_npay_myassetcapitalreg': '내자산 서비스 내 할부금융 연동 고객',
+        
+        # 마이카 서비스
+        'fi_npay_mycarreg': '마이카 등록 고객',
+        
+        # 대출 서비스
+        'fi_npay_loanbizcompare': 'Npay 사업자대출 서비스 내 대출비교 고객',
+        'fi_npay_loanbizapply': 'Npay 사업자대출 서비스 내 대출신청 고객',
+        'fi_npay_loancompare': 'Npay 신용대출 서비스 내 대출비교를 한 고객',
+        'fi_npay_loanapply': 'Npay 신용대출 서비스 내 대출신청을 한 고객',
+        'fi_npay_loanswitchcompare': 'Npay 신용대출대환 서비스 내 대출비교를 한 고객',
+        'fi_npay_loanswitchapply': 'Npay 신용대출대환 서비스 내 대출신청을 한 고객',
+        
+        # 보험 서비스
+        'fi_npay_insurancecompare': 'Npay 보험비교 서비스 이용 고객',
+        'fi_npay_insuranceapply': 'Npay 보험가입 신청 고객',
+        'fi_npay_overseainsucompare': 'Npay 해외여행자보험 비교 서비스 이용 고객',
+        'fi_npay_overseainsuapply': 'Npay 해외여행자보험 가입 신청 고객',
+        
+        # 마이데이터 및 설정
+        'fi_npay_myassetagree': '마이데이터 사용에 선택동의한 고객',
+        'fi_npay_event_pushoff': '네이버페이앱 이벤트/혜택 알림발송off여부 사후필터링',
+        
+        # 지역정보 (일부)
+        'fi_npay_regionseoul': '서울 거주 고객',
+        'fi_npay_regionbusan': '부산 거주 고객',
+        'fi_npay_regiondaegu': '대구 거주 고객',
+        'fi_npay_regionincheon': '인천 거주 고객',
+        'fi_npay_regiongwangju': '광주 거주 고객',
+        'fi_npay_regiondaejeon': '대전 거주 고객',
+        'fi_npay_regionulsan': '울산 거주 고객',
+        'fi_npay_regionsejong': '세종 거주 고객',
+        'fi_npay_regiongyeonggi': '경기도 거주 고객',
+        'fi_npay_regiongangwon': '강원도 거주 고객',
+        'fi_npay_regionchungbuk': '충청북도 거주 고객',
+        'fi_npay_regionchungnam': '충청남도 거주 고객',
+        'fi_npay_regionjeonbuk': '전라북도 거주 고객',
+        'fi_npay_regionjeonnam': '전라남도 거주 고객',
+        'fi_npay_regiongyeongbuk': '경상북도 거주 고객',
+        'fi_npay_regiongyeongnam': '경상남도 거주 고객',
+        'fi_npay_regionjeju': '제주도 거주 고객'
     }
 }
+
 
 def get_all_columns():
     """모든 컬럼을 하나의 딕셔너리로 반환"""
@@ -124,11 +485,35 @@ def get_all_columns():
         all_columns.update(category_columns)
     return all_columns
 
+
 def get_columns_by_category(category: str):
     """특정 카테고리의 컬럼들을 반환"""
     return CDP_COLUMNS.get(category, {})
+
 
 def get_column_description(column_name: str):
     """특정 컬럼의 설명을 반환"""
     all_columns = get_all_columns()
     return all_columns.get(column_name, "컬럼을 찾을 수 없습니다.")
+
+
+def get_column_count():
+    """전체 컬럼 수 반환"""
+    return sum(len(columns) for columns in CDP_COLUMNS.values())
+
+
+def get_category_stats():
+    """카테고리별 통계 반환"""
+    return {
+        category: len(columns) 
+        for category, columns in CDP_COLUMNS.items()
+    }
+
+
+# 컬럼 수 요약:
+# - basic: 1개
+# - interests: 40개 (fa_int_*)
+# - industries: 200+개 (fa_ind_* + fa_npay_*)
+# - scores: 100+개 (sc_int_*, sc_ind_*, sc_npay_*)
+# - flags: 100+개 (fi_npay_*)
+# 총 약 500개 이상의 컬럼

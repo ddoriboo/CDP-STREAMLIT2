@@ -23,14 +23,16 @@ st.markdown("""
 <style>
     /* 메인 앱 배경 */
     .stApp {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: white;
     }
     
     /* 메인 컨테이너 스타일 */
     .main .block-container {
         max-width: 1200px;
-        padding: 20px;
+        padding: 40px 20px;
         margin: 0 auto;
+        background: #f8f9fa;
+        min-height: 100vh;
     }
     
     /* 전체 컨테이너를 흰색 카드로 */
@@ -42,10 +44,10 @@ st.markdown("""
     .main-header {
         background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
         color: white;
-        padding: 30px;
+        padding: 40px 30px;
         text-align: center;
         border-radius: 20px 20px 0 0;
-        margin: -20px -20px 0 -20px;
+        margin: -30px -30px 0 -30px;
     }
     
     .main-header h1 {
@@ -63,9 +65,11 @@ st.markdown("""
     .content-wrapper {
         background: white;
         border-radius: 0 0 20px 20px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         padding: 30px;
-        margin: 0 -20px -20px -20px;
+        margin: 0 -30px 20px -30px;
+        border: 1px solid #e9ecef;
+        border-top: none;
     }
     
     /* API 키 섹션 */
@@ -115,6 +119,16 @@ st.markdown("""
     .query-container {
         max-width: 800px;
         margin: 30px auto;
+        padding: 0 20px;
+    }
+    
+    /* 컬럼 간격 조정 */
+    .stColumns {
+        gap: 1rem;
+    }
+    
+    .stColumn {
+        padding: 0 0.5rem;
     }
     
     .stTextArea textarea {
@@ -134,16 +148,19 @@ st.markdown("""
         background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
         color: white;
         border: none;
-        padding: 15px 30px;
-        border-radius: 25px;
-        font-size: 16px;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
         font-weight: 500;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
+        width: 100%;
+        margin: 4px 0;
     }
     
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
     }
     
     /* 예제 태그 스타일 */
